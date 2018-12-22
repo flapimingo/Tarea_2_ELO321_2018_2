@@ -1,6 +1,6 @@
-# Homework_1_ELO321_2018_2
+# Homework_2_ELO321_2018_2
 
-The following project consists of some System Calls to obtain values as Date, cuantity of process, Os name, Used memory, etc. The final Stage requires a Multi-Thread programming to do all the work efficiently. As well as being an iterative project in which each Part represents a state of advancement of this. 
+The following project consists of use and application of pipes to communicate two child process, reading and sending messages to each other.
 
 ## Getting Started
 
@@ -28,30 +28,28 @@ For run project you should use makefile or you can compilate files with gcc.
 
 ### Compilate Files whit Makefile
 
-First you must open folder of PartX (X is the letter of stage). 
-```
-cd PartX
-```
-Then you run Makefile.
+First you run Makefile.
 
 ```
 make 
 make clean 
 ```
-finally the program is compiled.
+then, the program is compiled.
 
 ### Run the compiled with Makefile
 ```
 ./Tarea
 ```
-Here you should see all the availables parameters to use.
+Inside the file named output.txt, you should see how the process communicate.
 Example:
 
 ```
-./Tarea date day
+cat output.txt
+message sended: Hi!
+send queue status: 4 messages left
+message recept: Hi!
+recept queue status: 1 message in queue
 ```
-
-
 
 ### Compilate and Run Files whit gcc
 
@@ -68,7 +66,7 @@ Obs: * *.c and *.h are all the files used to create the code of the program*
 
 Then run the Program
 ```
-./Tarea (1 or more Parameters if required)
+./Tarea
 ```
 
 ## Built With
