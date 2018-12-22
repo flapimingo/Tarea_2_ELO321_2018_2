@@ -40,11 +40,11 @@ then, the program is compiled.
 ```
 ./Tarea
 ```
-Inside the file named output.txt, you should see how the process communicate.
+Inside the file named comm_log_file.txt, you should see how the process communicate.
 Example:
 
 ```
-cat output.txt
+cat comm_log_file.txt
 message sended: Hi!
 send queue status: 4 messages left
 message recept: Hi!
