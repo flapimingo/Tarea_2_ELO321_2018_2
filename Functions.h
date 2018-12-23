@@ -15,7 +15,7 @@
 #define WRITE_END 1
 
 /*Function that will register the progress of the process parameters*/
-void writeToFile();
+void writeToFile(char* list[]);
 
 void readPipe(int input_pipe[], char buffer[MSGSIZE], char* receive[]);
 
@@ -24,5 +24,9 @@ void writePipe(int input_pipe[], char* msg_to_send[], int seed);
 char **addReceived(char *input, char *list[]);
 
 char **removeSended(char *list[]);
+
+int *receivedStatus(char *list[]);
+
+int sendedStatus(char *list[]);
 
 #endif
