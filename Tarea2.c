@@ -72,14 +72,14 @@ int main(int argc, char const *argv[])
                         int seed = getpid();
                         /* send Message */
                         printf("\n\nvalpo sended\n");
-                        writePipe(msg_pipe, msg_valpo_send, seed);
+                        writePipe(msg_pipe, msg_valpo_send, seed, *fp);
                         valpoState = 0;
                     }
                     else
                     {
                         printf("\n\nvalpo recept\n");
                         /* Read the pipe */
-                        readPipe(msg_pipe, receive_buffer, msg_valpo_receive);
+                        readPipe(msg_pipe, receive_buffer, msg_valpo_receive, *fp);
                         valpoState = 1;
                     }
                 }
