@@ -46,14 +46,14 @@ int main(int argc, char const *argv[])
                     printf("stgo sended: %s\n", msg_stgo_send[0]);
                     int seed = getpid();
                     /* send Message through the pipe */
-                    writePipe(msg_pipe, msg_stgo_send, seed, *fp);
+                    writePipe(msg_pipe, msg_stgo_send, seed);
                     stgoState = 0;
                 }
                 else
                 {
                     printf("stgo recept\n");
                     /* Read the pipe*/
-                    readPipe(msg_pipe, receive_buffer, msg_stgo_receive, *fp);
+                    readPipe(msg_pipe, receive_buffer, msg_stgo_receive);
                     stgoState = 1;
                 }
             }
@@ -72,14 +72,14 @@ int main(int argc, char const *argv[])
                         int seed = getpid();
                         /* send Message */
                         printf("\n\nvalpo sended\n");
-                        writePipe(msg_pipe, msg_valpo_send, seed, *fp);
+                        writePipe(msg_pipe, msg_valpo_send, seed);
                         valpoState = 0;
                     }
                     else
                     {
                         printf("\n\nvalpo recept\n");
                         /* Read the pipe */
-                        readPipe(msg_pipe, receive_buffer, msg_valpo_receive, *fp);
+                        readPipe(msg_pipe, receive_buffer, msg_valpo_receive);
                         valpoState = 1;
                     }
                 }

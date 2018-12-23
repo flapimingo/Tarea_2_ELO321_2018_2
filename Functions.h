@@ -17,9 +17,9 @@
 /*Function that will register the progress of the process parameters*/
 void writeToFile(FILE archivo, char* text);
 
-void readPipe(int input_pipe[], char buffer[MSGSIZE], char* receive[], FILE archivo);
+void readPipe(int input_pipe[], char buffer[MSGSIZE], char* receive[]);
 
-void writePipe(int input_pipe[], char* msg_to_send[], int seed, FILE archivo);
+void writePipe(int input_pipe[], char* msg_to_send[], int seed);
 
 char **addReceived(char *input, char *list[]);
 

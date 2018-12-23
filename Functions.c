@@ -7,14 +7,13 @@ void writeToFile(FILE archivo, char* text)
     fprintf(&archivo, "%s\n", text);
 }
 
-void readPipe(int input_pipe[], char buffer[MSGSIZE], char *receive[], FILE archivo)
+void readPipe(int input_pipe[], char buffer[MSGSIZE], char *receive[])
 {
     read(input_pipe[READ_END], buffer, MSGSIZE);
     if (strcmp(buffer, " ") != 0)
     {
         addReceived(buffer, receive);
         printf("message received: %s\n", buffer);
-        writeToFile(archivo, buffer);
     }
     if (strcmp(buffer, "FINISH") == 0)
     {
@@ -22,7 +21,7 @@ void readPipe(int input_pipe[], char buffer[MSGSIZE], char *receive[], FILE arch
     }
 }
 
-void writePipe(int input_pipe[], char *msg_to_send[], int seed, FILE archivo)
+void writePipe(int input_pipe[], char *msg_to_send[], int seed)
 {
     srand(seed);
     if ((1 + rand() % 10) < 8)
