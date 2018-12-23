@@ -32,22 +32,26 @@ First you run Makefile.
 
 ```
 make 
+make run
 make clean 
 ```
 then, the program is compiled.
 
 ### Run the compiled with Makefile
+
+We recommend to run it manually, sometimes it seems to dont write in the file *Troubles at the end*
+
 ```
-./Tarea
+./Tarea > comm_log_file.txt
 ```
 Inside the file named comm_log_file.txt, you should see how the process communicate.
 Example:
 
 ```
 cat comm_log_file.txt
-message sended: Hi!
+message sended: Va!
 send queue status: 4 messages left
-message recept: Hi!
+message recept: Va!
 recept queue status: 1 message in queue
 ```
 
@@ -68,6 +72,17 @@ Then run the Program
 ```
 ./Tarea
 ```
+
+## Troubles
+
+Some times dont write the comm_log_file.txt properly. Maybe by a bad way to write the output file.
+
+The communnication between two child process can be done in many ways, one of them is by using pipes, generally we can set one pipe to each direction and close the other one that's not in use. In this case, we tried using only one pipe and made it bidirectional.
+Our program is not completed, because we couldn't figure how to synchronize both process, so it hangs up sometimes.
+When it works as it has to, the process send messages to each other, and put it in a recept queue.
+Maybe implementing semaphores or producer/consumer solution could help, in a future, to fix this issue and to let it functional. 
+Anyway, the recommended way is to always use pipes unidirectionally.
+
 
 ## Built With
 
