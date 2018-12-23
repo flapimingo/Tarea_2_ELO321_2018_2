@@ -25,12 +25,12 @@ void readPipe(int input_pipe[], char buffer[MSGSIZE], char *receive[])
     printf("ah copiao\n");
     close(input_pipe[WRITE_END]); /*close write end, it's not needed*/
     read(input_pipe[READ_END], buffer, MSGSIZE);
-    if (buffer != " ")
+    if (strcmp(buffer," ")!=0)
     {
         addReceived(buffer, receive);
         printf("message received: %s\n", buffer);
     }
-    if (buffer == "FINISH")
+    if (strcmp(buffer,"FINISH")==0)
     {
         close(input_pipe[READ_END]);
         abort();
@@ -42,7 +42,7 @@ void writePipe(int input_pipe[], char *msg_to_send[], int seed)
     srand(seed);
     if ((1 + rand() % 10) < 8)
     {
-        if (msg_to_send[0] != " ")
+        if (strcmp(msg_to_send[0]," ")!=0)
         {
             close(input_pipe[READ_END]); /*close write end, it's not needed*/
             write(input_pipe[WRITE_END], msg_to_send[0], MSGSIZE);
@@ -62,7 +62,7 @@ void writePipe(int input_pipe[], char *msg_to_send[], int seed)
         printf("No message was sended\n");
         write(input_pipe[WRITE_END], " ", MSGSIZE);
     }
-    if (msg_to_send[0] == " ")
+    if (strcmp(msg_to_send[0]," ")==0)
     {
         printf("Ya terminé, ven a limpiarme porfa\n");
         write(input_pipe[WRITE_END], "FINISH", MSGSIZE);

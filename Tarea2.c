@@ -29,11 +29,11 @@ int main(int argc, char const *argv[])
         if ((pid1 = fork()) == 0)
         {
             /*1st child: Santiago */
-            while ((msg_valpo_send[0] != " ") && (msg_stgo_send[0] != " "))
+            while ( strcmp(msg_stgo_send[0]," ")!=0 )
             {
                 if (stgoState == 1)
                 {
-                    printf("\n\nstgo sended\n");
+                    printf("stgo sended: %s\n",msg_stgo_send[0]);
                     int seed = getpid();
                     /* send Message through the pipe */
                     writePipe(stgo_to_valpo, msg_stgo_send, seed);
@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
                 }
                 else
                 {
-                    printf("\n\nstgo recept\n");
+                    printf("stgo recept\n");
                     /* Read the pipe*/
                     readPipe(valpo_to_stgo, receive_buffer, msg_stgo_receive);
                     stgoState = 1;
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
             if ((pid2 = fork()) == 0)
             {
                 /*2nd child: Valparaiso */
-                while ((msg_valpo_send[0] != " ") && (msg_stgo_send[0] != " "))
+                while (strcmp(msg_valpo_send[0]," ")!=0)
                 {
                     
                     if (valpoState == 1)
