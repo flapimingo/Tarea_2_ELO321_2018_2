@@ -8,7 +8,16 @@ int main(int argc, char const *argv[])
     int stgoState = 0;  /* Starts reading */
     int valpoState = 1; /* Starts writing */
 
-    int iterator;
+    /*file ointer to write status of the process*/
+    FILE *fp;
+    fp = fopen("comm_log_file.txt", "w+");
+
+    /*Checks if file has opened correctly*/
+    if (fp == NULL)
+    {
+        printf("File doesn't exists.\n");
+        exit(1);
+    }
 
     if (pipe(msg_pipe) < 0)
     {
@@ -30,30 +39,22 @@ int main(int argc, char const *argv[])
         if ((pid1 = fork()) == 0)
         {
             /*1st child: Santiago */
-            //while (strcmp(msg_stgo_send[0], " ") != 0)
-            for (iterator = 0; iterator = MAXMSG; strcmp(msg_stgo_send[iterator], "NULL") ?: iterator++)
+            while (strcmp(msg_stgo_send[0], " ") != 0)
             {
-                if ((strcmp(msg_stgo_receive[MAXMSG], "NULL") != 0) && (strcmp(msg_stgo_send[0], " ") == 0))
+                if (stgoState == 1)
                 {
-                    break;
+                    printf("stgo sended: %s\n", msg_stgo_send[0]);
+                    int seed = getpid();
+                    /* send Message through the pipe */
+                    writePipe(msg_pipe, msg_stgo_send, seed);
+                    stgoState = 0;
                 }
                 else
                 {
-                    if (stgoState == 1)
-                    {
-                        printf("stgo sended: %s\n", msg_stgo_send[0]);
-                        int seed = getpid();
-                        /* send Message through the pipe */
-                        writePipe(msg_pipe, msg_stgo_send, seed);
-                        stgoState = 0;
-                    }
-                    else
-                    {
-                        printf("stgo recept\n");
-                        /* Read the pipe*/
-                        readPipe(msg_pipe, receive_buffer, msg_stgo_receive);
-                        stgoState = 1;
-                    }
+                    printf("stgo recept\n");
+                    /* Read the pipe*/
+                    readPipe(msg_pipe, receive_buffer, msg_stgo_receive);
+                    stgoState = 1;
                 }
             }
         }
@@ -63,31 +64,23 @@ int main(int argc, char const *argv[])
             if ((pid2 = fork()) == 0)
             {
                 /*2nd child: Valparaiso */
-                //while (strcmp(msg_valpo_send[0], " ") != 0)
-                for (iterator = 0; iterator = MAXMSG; strcmp(msg_valpo_send[iterator], "NULL") ?: iterator++)
+                while (strcmp(msg_valpo_send[0], " ") != 0)
                 {
-                    //if (strcmp(msg_valpo_send[0], " ") == 0)
-                    if ((strcmp(msg_valpo_receive[MAXMSG], "NULL") != 0) && (strcmp(msg_valpo_send[0], " ") == 0))
+
+                    if (valpoState == 1)
                     {
-                        break;
+                        int seed = getpid();
+                        /* send Message */
+                        printf("\n\nvalpo sended\n");
+                        writePipe(msg_pipe, msg_valpo_send, seed);
+                        valpoState = 0;
                     }
                     else
                     {
-                        if (valpoState == 1)
-                        {
-                            int seed = getpid();
-                            /* send Message */
-                            printf("\n\nvalpo sended\n");
-                            writePipe(msg_pipe, msg_valpo_send, seed);
-                            valpoState = 0;
-                        }
-                        else
-                        {
-                            printf("\n\nvalpo recept\n");
-                            /* Read the pipe */
-                            readPipe(msg_pipe, receive_buffer, msg_valpo_receive);
-                            valpoState = 1;
-                        }
+                        printf("\n\nvalpo recept\n");
+                        /* Read the pipe */
+                        readPipe(msg_pipe, receive_buffer, msg_valpo_receive);
+                        valpoState = 1;
                     }
                 }
             }
@@ -98,6 +91,9 @@ int main(int argc, char const *argv[])
                 waitpid(pid2, &status2, 0);
                 close(msg_pipe[READ_END]);
                 close(msg_pipe[WRITE_END]);
+
+                /*Closes file to save file data*/
+                fclose(fp);
             }
         }
         return 0;

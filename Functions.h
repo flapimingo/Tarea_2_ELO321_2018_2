@@ -15,7 +15,7 @@
 #define WRITE_END 1
 
 /*Function that will register the progress of the process parameters*/
-void writeToFile();
+void writeToFile(int flag);
 
 void readPipe(int input_pipe[], char buffer[MSGSIZE], char* receive[]);
 

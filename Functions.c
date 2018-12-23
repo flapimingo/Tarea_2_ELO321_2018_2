@@ -1,23 +1,13 @@
 #include "Functions.h"
 
-void writeToFile()
+void writeToFile(int flag)
 {
-    /*
-    FILE *fp;
 
-    fp = fopen("comm_log_file.txt", "r+");
-
-    if(fp == NULL)
+    char *wea = "testeanding";
+    if (flag == 0)
     {
-        printf("File doesn't exists.\n");
+        //fprintf(fp, "%s\n", wea);
     }
-    
-
-    printf();
-
-    Closes file to save file data
-    fclose(fp); 
-    */
 }
 
 void readPipe(int input_pipe[], char buffer[MSGSIZE], char *receive[])
@@ -45,12 +35,11 @@ void writePipe(int input_pipe[], char *msg_to_send[], int seed)
             printf("message sended: %s\n", msg_to_send[0]);
             removeSended(msg_to_send);
         }
-        // else
-        // {
-        //     printf("Ya terminé, ven a limpiarme porfa");
-        //     write(input_pipe[WRITE_END], "FINISH", MSGSIZE);
-        //     abort();
-        // }
+        else
+        {
+            write(input_pipe[WRITE_END], "FINISH", MSGSIZE);
+            abort();
+        }
     }
     else
     {
